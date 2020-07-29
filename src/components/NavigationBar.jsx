@@ -1,17 +1,20 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
+
 
 function NavBar(props) {
     return ( 
         <div className={props.className}>
-            <StyledLogo> JC22 </StyledLogo>
 
+            <Link to="/"> <StyledLogo> JC22 </StyledLogo> </Link>
+            
             <StyledButtonGroup buttonPosition={props.buttonPosition}>
-                <StyledNavButton> Projects </StyledNavButton>
-                <StyledNavButton> About    </StyledNavButton>
-                <StyledNavButton> Resume   </StyledNavButton>
-                <StyledNavButton> Contact  </StyledNavButton>
-                <StyledNavButton> Other    </StyledNavButton>
+                <StyledNavButton to="/projects"> Projects </StyledNavButton>
+                <StyledNavButton to="/about"> About    </StyledNavButton>
+                <StyledNavButton to="/resume"> Resume   </StyledNavButton>
+                <StyledNavButton to="/contact"> Contact  </StyledNavButton>
+            
             </StyledButtonGroup>
 
             <StyledRule />
@@ -30,7 +33,7 @@ const StyledButtonGroup = styled.div`
     right: ${props => props.buttonPosition}vh;
 `;
 
-const StyledNavButton = styled.button`
+const StyledNavButton = styled(Link)`
     display: inline-block;
     color: #06B25F;
     font-size: 1em;
@@ -38,6 +41,7 @@ const StyledNavButton = styled.button`
     padding: 0.25em 1em;
     border: 2px solid #06B25F;
     border-radius: 3px;
+    text-decoration: none;
 `;
 
 const StyledRule = styled.hr`

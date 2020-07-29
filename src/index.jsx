@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { StyledNavBar } from './components/NavigationBar.jsx';
 import { ProjectCard, ProjectList, ProjectPage } from './components/Project.jsx';
@@ -48,10 +49,21 @@ function App(){
     })
 
     return (
-        <div>
-            <StyledNavBar height={navHeight} buttonPosition={buttonPos}/>
-            <ProjectList />
-        </div>
+        <Router>
+            <div>
+                <StyledNavBar height={navHeight} buttonPosition={buttonPos}/>
+                <div style={{height: navMaxHeight + 'vh'}}></div>
+                
+
+                <Switch>
+                    <Route path="/">Hello world</Route>
+                    <Route path="/projects"> <ProjectList /> </Route>
+                    <Route path="/about"></Route>
+                    <Route path="/resume"></Route>
+                    <Route path="/contact"></Route>
+                </Switch>
+            </div>
+        </Router>
     );
 }
 
