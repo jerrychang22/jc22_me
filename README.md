@@ -1,2 +1,2 @@
-# jc22_dev
-Source code for personal website : jc22.dev
+# jc22_me
+Source code for personal website : jc22.me
