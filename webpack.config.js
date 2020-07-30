@@ -14,7 +14,14 @@ module.exports = {
             {
                 test: /\.(woff|woff2)$/,
                 use: ['url-loader'],
+            },
+
+            {
+                test: /\.(pdf)$/,
+                use: ['file-loader'],
             }
+        
+
         ]
     },
 

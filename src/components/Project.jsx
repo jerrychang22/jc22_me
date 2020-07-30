@@ -12,6 +12,7 @@ function ProjectList(props) {
     var proj_list = projs.map((proj) => <li> {proj} </li>);
     return (
         <div>
+            <h1> {props.name} </h1>
             <ul> {proj_list} </ul>
         </div>
     );

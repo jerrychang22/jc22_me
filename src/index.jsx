@@ -7,21 +7,22 @@ import { navMaxHeight, scrollSwitch, throttleTime } from './utils/constants.js';
 
 import { NavBar } from './components/NavigationBar.jsx';
 import { ProjectCard, ProjectList, ProjectPage } from './components/Project.jsx';
+import { Resume } from './components/Resume.jsx';
+
 
 import styled, { css, createGlobalStyle } from 'styled-components';
-import JBM from './JetBrainsMono-Bold.woff2';
+import JBM from './misc/JetBrainsMono-Bold.woff2';
 
 function App(){
 
     //React hook to detect scrolling
     //Create hook
-    const [heightPercent, setPercent] = React.useState(window.ScrollY / window.innerHeight);
+    const [heightPercent, setPercent] = React.useState(0);
 
     //Define triggering function
     const handleScroll = () => {
         const scroll = window.scrollY / window.innerHeight;
-        (scroll * 100 > scrollSwitch) ? setPercent(1) : setPercent( lerp2(0, scrollSwitch/100, 0, 1, scroll) );
-        console.log(heightPercent);
+        (scroll * 100 > scrollSwitch) ? setPercent(1) : setPercent( lerp2(0, scrollSwitch / 100, 0, 1, scroll) );
     }
 
     //Attach event and hook
@@ -43,11 +44,11 @@ function App(){
                 
                 <ContentBody> 
                     <Switch>
-                        <Route exact={true} path="/"> <Home /> </Route>
-                        <Route path="/projects"> <ProjectList /> </Route>
-                        <Route path="/about"></Route>
-                        <Route path="/resume"></Route>
-                        <Route path="/contact"></Route>
+                        <Route exact path="/"> <Home /> </Route>
+                        <Route path="/projects"> <ProjectList name="projects"/> </Route>
+                        <Route path="/about"> <ProjectList name="about"/> </Route>
+                        <Route path="/resume"> <Resume /> </Route>
+                        <Route path="/contact"> <ProjectList name="contact"/> </Route>
                     </Switch>
                 </ContentBody>
             </div>
@@ -56,11 +57,18 @@ function App(){
 }
 
 function Home(props){
-    return (<div>Hello world</div>);
+    return (<div>
+                <div style={{height: 100 + 'vh'}}>
+                    Test
+                </div>
+            Hello world
+            </div>);
 }
 
 const ContentBody = styled.div`
+    
     margin : 10vh;
+    margin-top: 15vh;
 `;
 
 const GlobalStyle = createGlobalStyle`
