@@ -2,41 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { StyledNavBar } from './components/NavigationBar.jsx';
+import { lerp, lerp2 } from './utils/lerp.js';
+import { navMaxHeight, scrollSwitch, throttleTime } from './utils/constants.js';
+
+import { NavBar } from './components/NavigationBar.jsx';
 import { ProjectCard, ProjectList, ProjectPage } from './components/Project.jsx';
 
-//import { throttle } from './utils/lodash.custom.js';
-
-function lerp(a, b, t) {
-    return (a * (1 - t) + b * t);
-}
+import styled, { css, createGlobalStyle } from 'styled-components';
+import JBM from './JetBrainsMono-Bold.woff2';
 
 function App(){
 
     //React hook to detect scrolling
-    //Height in vh %'s
-    const navMinHeight = 5;
-    const navMaxHeight = 50;
-    const butMinPosition = 50;
-    const butMaxPosition = 0;
-
-    //Create hooks
-    const [navHeight, setNavHeight] = React.useState(navMaxHeight);
-    const [buttonPos, setButPosition] = React.useState(butMinPosition);
+    //Create hook
+    const [heightPercent, setPercent] = React.useState(window.ScrollY / window.innerHeight);
 
     //Define triggering function
     const handleScroll = () => {
-        var scroll = 100 * window.scrollY / window.innerHeight; //scroll height from pixels -> vhs
-        console.log(scroll); 
-        //Scroll nav height
-        if (scroll < (navMaxHeight - navMinHeight)) {
-            setNavHeight(lerp(navMaxHeight, navMinHeight, scroll / (navMaxHeight - navMinHeight)));
-            setButPosition(lerp(butMinPosition, butMaxPosition, scroll / (navMaxHeight - navMinHeight)));
-        }
-        else {
-            setNavHeight(navMinHeight); 
-            setButPosition(butMaxPosition);
-        }
+        const scroll = window.scrollY / window.innerHeight;
+        (scroll * 100 > scrollSwitch) ? setPercent(1) : setPercent( lerp2(0, scrollSwitch/100, 0, 1, scroll) );
+        console.log(heightPercent);
     }
 
     //Attach event and hook
@@ -44,29 +29,53 @@ function App(){
         //throttle scroll event
         const timer = setTimeout(() => {
             window.addEventListener('scroll', handleScroll);
-        }, 100);
+        }, throttleTime);
         return () => clearTimeout(timer);
     })
 
+    //Main app
     return (
         <Router>
+            <GlobalStyle />
             <div>
-                <StyledNavBar height={navHeight} buttonPosition={buttonPos}/>
+                <NavBar height={heightPercent}/>
                 <div style={{height: navMaxHeight + 'vh'}}></div>
                 
-
-                <Switch>
-                    <Route path="/">Hello world</Route>
-                    <Route path="/projects"> <ProjectList /> </Route>
-                    <Route path="/about"></Route>
-                    <Route path="/resume"></Route>
-                    <Route path="/contact"></Route>
-                </Switch>
+                <ContentBody> 
+                    <Switch>
+                        <Route exact={true} path="/"> <Home /> </Route>
+                        <Route path="/projects"> <ProjectList /> </Route>
+                        <Route path="/about"></Route>
+                        <Route path="/resume"></Route>
+                        <Route path="/contact"></Route>
+                    </Switch>
+                </ContentBody>
             </div>
         </Router>
     );
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+function Home(props){
+    return (<div>Hello world</div>);
+}
 
-module.hot.accept();
+const ContentBody = styled.div`
+    margin : 10vh;
+`;
+
+const GlobalStyle = createGlobalStyle`
+    @font-face {
+        font-family: 'JetBrainsMono';
+        src: url('${JBM}') format('woff2');
+    }
+
+    * {
+        font-family: "JetBrainsMono" !important;
+    }
+
+    body {
+        margin : 0;
+    }
+`
+
+ReactDOM.render(<App />, document.getElementById('app'));
