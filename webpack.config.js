@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 
 module.exports = {
+    mode: 'production',
+
     entry: './src/index.jsx',
 
     module: {
@@ -17,7 +19,7 @@ module.exports = {
             },
 
             {
-                test: /\.(pdf)$/,
+                test: /\.(png|pdf)$/,
                 use: ['file-loader'],
             }
         

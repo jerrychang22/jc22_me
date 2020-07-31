@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { lerp, lerp2 } from '../utils/lerp.js';
-import { scrollSwitch, navMinHeight, navMaxHeight, logoMinSize, logoMaxSize, logoFontScale, butMinSize, butMaxSize, hrMinWidth, throttleTime } from '../utils/constants.js';
+import { scrollSwitch, navMinHeight, navMaxHeight, logoMinSize, logoMaxSize, logoFontScale, logoMinLeft, butMinSize, butMaxSize, hrMinWidth, throttleTime } from '../utils/constants.js';
 
 function NavBar(props) {
 
@@ -32,10 +32,10 @@ function NavBar(props) {
     }
 
     return ( 
-        <StyledNavBar height={lerp(navMaxHeight, navMinHeight, props.height)}>
+        <StyledNavBar height={lerp(navMaxHeight, navMinHeight, props.height)} pattern={props.pattern}>
 
             <Link to="/" onClick={navHomeScroll}>
-                <StyledLogo size={lerp(logoMaxSize, logoMinSize, props.height)} left={lerp(50, logoMinSize/2, props.height)}> 
+                <StyledLogo size={lerp(logoMaxSize, logoMinSize, props.height)} left={lerp(50, logoMinLeft, props.height)}> 
                     <div> JC </div>
                     <div> 22 </div>
                 </StyledLogo>
@@ -48,7 +48,18 @@ function NavBar(props) {
                 <StyledNavButton to="/contact" onClick={navContentScroll}> Contact  </StyledNavButton>
             
             </StyledButtonGroup>
-
+            
+            <SourceCode visible={(props.height < 0.5)?'visible':'hidden'}> 
+                This website was written 
+                <br/>
+                from scratch in React
+                <br/>
+                Source code: 
+                <a href="https://git.io/JJaz5"> 
+                https://git.io/JJaz5
+                </a>
+            </SourceCode>
+            
             <StyledRule width={lerp(hrMinWidth, 100, props.height)} margin={lerp((100 - hrMinWidth)/2, 0, props.height)}/>
         </StyledNavBar>
     );
@@ -57,8 +68,8 @@ function NavBar(props) {
 const StyledLogo = styled.div`
     color: #06B25F;    
     display: inline-block;
-    width: ${props => props.size}vw;
-    font-size: ${props => logoFontScale * props.size}vh; 
+    width: 1.2em;
+    font-size: ${props => props.size}em; 
     position: absolute;
     top: 50%;
     left: ${props => props.left}%;
@@ -83,6 +94,16 @@ const StyledNavButton = styled(Link)`
     border: 2px solid #06B25F;
     border-radius: 3px;
     text-decoration: none;
+    background-color: #FFFFFF;
+`;
+
+const SourceCode = styled.div`
+    position: absolute;
+    bottom: 2%;
+    right: 1%;
+    visibility: ${props => props.visible};
+    font-size: 0.8em;
+    text-align: right;
 `;
 
 const StyledRule = styled.hr`
@@ -95,8 +116,13 @@ const StyledRule = styled.hr`
 `;
 
 const StyledNavBar = styled.div`
+    
+    background-image: url(${props => props.pattern});
+    background-repeat: repeat;
+    
     background-color: #FFFFFF;
     display: inline-block;
+    z-index: 1000;
     position: fixed;
     height: ${props => props.height}vh;
     width: 100%;

@@ -2,16 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+import { NavBar } from './components/NavigationBar.jsx';
+import { Home } from './components/Home.jsx';
+import { ProjectCard, ProjectList, ProjectPage } from './components/Project.jsx';
+import { About } from './components/About.jsx';
+import { Resume } from './components/Resume.jsx';
+
 import { lerp, lerp2 } from './utils/lerp.js';
 import { navMaxHeight, scrollSwitch, throttleTime } from './utils/constants.js';
 
-import { NavBar } from './components/NavigationBar.jsx';
-import { ProjectCard, ProjectList, ProjectPage } from './components/Project.jsx';
-import { Resume } from './components/Resume.jsx';
-
-
 import styled, { css, createGlobalStyle } from 'styled-components';
 import JBM from './misc/JetBrainsMono-Bold.woff2';
+import Pattern from './misc/patterns/dot-grid.png';
+
 
 function App(){
 
@@ -39,34 +42,42 @@ function App(){
         <Router>
             <GlobalStyle />
             <div>
-                <NavBar height={heightPercent}/>
+                <NavBar height={heightPercent} pattern={Pattern}/>
                 <div style={{height: navMaxHeight + 'vh'}}></div>
                 
-                <ContentBody> 
-                    <Switch>
-                        <Route exact path="/"> <Home /> </Route>
-                        <Route path="/projects"> <ProjectList name="projects"/> </Route>
-                        <Route path="/about"> <ProjectList name="about"/> </Route>
-                        <Route path="/resume"> <Resume /> </Route>
-                        <Route path="/contact"> <ProjectList name="contact"/> </Route>
-                    </Switch>
-                </ContentBody>
+                <Switch>
+                    <Route exact path="/"> <Home height={heightPercent}/> </Route>
+                    <Route path="/projects">
+                        <ContentBody pattern={Pattern}> 
+                            <ProjectList name="projects"/>
+                        </ContentBody>
+                    </Route>
+
+                    <Route path="/about"> 
+                        <ContentBody pattern={Pattern}> 
+                            <About/> 
+                        </ContentBody>
+                    </Route>
+                    
+                    <Route path="/resume"> 
+                        <ContentBody pattern={Pattern}> 
+                            <Resume /> 
+                        </ContentBody>
+                    </Route>
+
+                    <Route path="/contact"> 
+                        <ContentBody pattern={Pattern}> 
+                            <ProjectList name="contact"/>
+                        </ContentBody>
+                    </Route>
+                </Switch>
             </div>
         </Router>
     );
 }
 
-function Home(props){
-    return (<div>
-                <div style={{height: 100 + 'vh'}}>
-                    Test
-                </div>
-            Hello world
-            </div>);
-}
 
 const ContentBody = styled.div`
-    
     margin : 10vh;
     margin-top: 15vh;
 `;
@@ -82,6 +93,10 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
+        /*
+        background-image: url(${Pattern});
+        background-repeat: repeat;
+        */
         margin : 0;
     }
 `
