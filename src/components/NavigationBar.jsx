@@ -5,6 +5,22 @@ import { Link } from 'react-router-dom';
 import { lerp, lerp2 } from '../utils/lerp.js';
 import { scrollSwitch, navMinHeight, navMaxHeight, logoMinSize, logoMaxSize, logoFontScale, logoMinLeft, butMinSize, butMaxSize, hrMinWidth, throttleTime } from '../utils/constants.js';
 
+function navContentScroll2(props, e){
+    if (props.height < 1){
+        window.scrollTo({
+            top: window.innerHeight * scrollSwitch / 100,
+            left: 0,
+            behavior: 'smooth'
+        });  
+    }
+    else 
+        window.scrollTo({
+            top: window.innerHeight * scrollSwitch / 100,
+            left: 0,
+            behavior: 'auto'
+        });
+}
+
 function NavBar(props) {
 
     function navHomeScroll(e){
@@ -43,8 +59,8 @@ function NavBar(props) {
             
             <StyledButtonGroup size={lerp(butMaxSize, butMinSize, props.height)} right={lerp(50, butMinSize, props.height)} >
                 <StyledNavButton to="/projects" onClick={navContentScroll}> Projects </StyledNavButton>
-                <StyledNavButton to="/about" onClick={navContentScroll}> About    </StyledNavButton>
                 <StyledNavButton to="/resume" onClick={navContentScroll}> Resume   </StyledNavButton>
+                <StyledNavButton to="/about" onClick={navContentScroll}> About    </StyledNavButton>
                 <StyledNavButton to="/contact" onClick={navContentScroll}> Contact  </StyledNavButton>
             
             </StyledButtonGroup>
@@ -129,4 +145,4 @@ const StyledNavBar = styled.div`
 `;
 
 //export { StyledNavBar };
-export { NavBar };
+export { NavBar, StyledNavButton, navContentScroll2 };

@@ -7,6 +7,7 @@ import { Home } from './components/Home.jsx';
 import { ProjectCard, ProjectList, ProjectPage } from './components/Project.jsx';
 import { About } from './components/About.jsx';
 import { Resume } from './components/Resume.jsx';
+import { Contact, ContactFooter } from './components/Contact.jsx';
 
 import { lerp, lerp2 } from './utils/lerp.js';
 import { navMaxHeight, scrollSwitch, throttleTime } from './utils/constants.js';
@@ -49,13 +50,7 @@ function App(){
                     <Route exact path="/"> <Home height={heightPercent}/> </Route>
                     <Route path="/projects">
                         <ContentBody pattern={Pattern}> 
-                            <ProjectList name="projects"/>
-                        </ContentBody>
-                    </Route>
-
-                    <Route path="/about"> 
-                        <ContentBody pattern={Pattern}> 
-                            <About/> 
+                            <ProjectList />
                         </ContentBody>
                     </Route>
                     
@@ -65,12 +60,20 @@ function App(){
                         </ContentBody>
                     </Route>
 
+                    <Route path="/about"> 
+                        <ContentBody pattern={Pattern}> 
+                            <About/> 
+                        </ContentBody>
+                    </Route>
+
                     <Route path="/contact"> 
                         <ContentBody pattern={Pattern}> 
-                            <ProjectList name="contact"/>
+                            <Contact />
                         </ContentBody>
                     </Route>
                 </Switch>
+
+                <ContactFooter />
             </div>
         </Router>
     );
@@ -78,8 +81,11 @@ function App(){
 
 
 const ContentBody = styled.div`
-    margin : 10vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
     margin-top: 15vh;
+    margin-bottom: 10vh;
+    min-height: 65vh;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -94,6 +100,8 @@ const GlobalStyle = createGlobalStyle`
 
     body {
         /*
+        background-color: black;
+        color: white;
         background-image: url(${Pattern});
         background-repeat: repeat;
         */

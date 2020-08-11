@@ -17,6 +17,9 @@ function About(props) {
 }
 
 const AboutContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
 `;
 
@@ -24,14 +27,13 @@ const Photo = styled.img`
     text-align: center;
     border: 2px solid #06B25F;
     box-shadow: 1px 1px #888888;
-    margin: 0 auto;
-    display: inline-block;
+    display: flex;
     width: 40vw;
     hegith: 50vh;
 `;
 
 const InfoBlock = styled.div`
-    display: inline-block;
+    display: flex;
     width: 40vw;
     height: 50vh;
     background-color: #06B25F;

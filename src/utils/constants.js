@@ -1,7 +1,7 @@
 
 //scrollSwitch === navMaxHeight
 export const scrollSwitch = 70;
-export const throttleTime = 500;
+export const throttleTime = 100;
 
 export const navMinHeight = 10;
 export const navMaxHeight = 70;
