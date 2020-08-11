@@ -10,7 +10,11 @@ function About(props) {
 
             <AboutContainer>            
                 <Photo src={JCPNG}/>
-                <InfoBlock></InfoBlock>
+                <InfoBlock>
+                    <p> My name is <b>Jerry Chang</b> </p>
+                    <p> I'm a rising senior obtaining a mechanical engineering degree. I was raised in New York City and attended Stuyvesant High School where I joined the school's FIRST Robotics team and would since be in love with the world of robotics. </p>
+                    <p> I believe in understanding the fundamentals and building quality. Whether it's the design, the circuitry, or the programming, I like building the project from the ground up and learning as much as I can. </p>
+                </InfoBlock>
             </AboutContainer>
         </div>
     );
@@ -19,7 +23,7 @@ function About(props) {
 const AboutContainer = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     text-align: center;
 `;
 
@@ -34,9 +38,12 @@ const Photo = styled.img`
 
 const InfoBlock = styled.div`
     display: flex;
+    flex-wrap: wrap;
+    text-align: center;
     width: 40vw;
-    height: 50vh;
-    background-color: #06B25F;
+    height: 100%;
+    font-size: 1.5em;
+    justify-content: center;
 `;
 
 export { About };

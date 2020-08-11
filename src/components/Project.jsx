@@ -3,21 +3,33 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { projs } from '../utils/constants.js';
 
-import JCPNG from '../misc/JC2.jpg';
+import JCPIC from '../misc/JC2.jpg';
 
 function ProjectCard(props) {
     return (
             <CardContainer>
-                <button> 
-                    Card 
-                </button>
+                <CardInfo>
+                    <CardTitle>
+                        #1 Name <br />
+                        Date
+                    </CardTitle>
+                    <CardAbout>
+                        <p>About</p>
+                    </CardAbout>
+                </CardInfo>
+                <CardTags>
+                    Elec
+                </CardTags>
+                <CardMore>
+                    More button
+                </CardMore>
             </CardContainer>
     );
 }
 
 function ProjectList(props) {
-    
-    var proj_list = projs.map((proj) => <li> <ProjectCard /> </li>);
+    var disp_height = (window.innerWidth < window.innerHeight) ? 30 : 90; 
+    var proj_list = projs.map((proj) => <ListItem> <ProjectCard /> </ListItem>);
     return (
         <div>
             <ProjectHeader>
@@ -26,8 +38,8 @@ function ProjectList(props) {
             </ProjectHeader>
             
             <ProjectsContainer>
-                <ProjectDisplay>
-                
+                <ProjectDisplay height={disp_height}>
+                    <ProjectImage />
                 </ProjectDisplay>
                 <ProjectsBox>
                     <ListContainer> {proj_list} </ListContainer>
@@ -58,6 +70,7 @@ const ProjectH = styled.div`
 const ProjectsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 `;
 
 const ProjectDisplay = styled.div`
@@ -65,25 +78,38 @@ const ProjectDisplay = styled.div`
     flex-basis: 640px;
     flex-grow: 1;
 
-    background-image: url(${JCPNG});
-    background-size: cover;
-    height: 80vh;
+    background-color: white;
+    height: ${props => props.height}vh;
     
     position: sticky;
-    top: 15vh;
+    top: 10vh;
+    z-index: 998;
+`;
+
+const ProjectImage = styled.div`
+    background-image: url(${JCPIC});
+    background-size: cover;
+    width: 100%;
+    z-index: 999;
+    margin: 5vh 2vw;
 `;
 
 const ProjectsBox = styled.div`
     display: flex;
     flex-basis: 640px;
     flex-grow: 2;
-
-    position: sticky;
-    top: 15vh;
+    z-index: 997;
 `;
 
 const ListContainer = styled.ul`
     width: 100%;
+    padding: 0;
+`;
+
+const ListItem = styled.li`
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 `;
 
 const CardContainer = styled.div`
@@ -94,4 +120,31 @@ const CardContainer = styled.div`
     border-bottom: 2px solid #06B25F; 
 
 `;
+
+const CardInfo = styled.div`
+    display: flex;
+    flex-grow: 5;
+    flex-direction: column;
+`;
+
+const CardTitle = styled.div`
+    width: 100%;
+    height: 20%;
+`;
+
+const CardAbout = styled.div`
+    width: 100%;
+    height: 80%;
+`;
+
+const CardTags = styled.div`
+    display: flex;
+    flex-grow: 2;
+
+`;
+
+const CardMore = styled.div`
+    display: flex;
+    flex-grow: 1;
+`
 export { ProjectCard, ProjectList, ProjectPage };

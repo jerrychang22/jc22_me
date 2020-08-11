@@ -18,5 +18,4 @@ export const hrMinWidth = 90;
 
 export const maxBlackout = 0.8;
 
-export const projs = [...Array(100).keys()];
-
+export const projs = [...Array(10).keys()];

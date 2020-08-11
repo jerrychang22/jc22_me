@@ -18,8 +18,37 @@ function Resume(props) {
                 <a href='Resume2020.pdf'>
                     <StyledResume src={ResumePNG}/>
                 </a>
-                <InfoBlock></InfoBlock>
+                <InfoBlock>
+                    <ResumeInfo />
+                </InfoBlock>
             </ResumeContainer>
+        </div>
+    );
+}
+
+function ResumeInfo(props){
+    return (
+        <div>
+            <b>Name : </b> Jerry Chang <br/>
+            <b>Email : </b> jerrychang22@gmail.com <br/>
+            <b>Phone : </b> Phone <br/>
+            <b>Address : </b> Address <br/>
+            <b>LinkedIn : </b> <a href="https://linkedin.com/in/jerrychang22"> linkedin.com/in/jerrychang22 </a> <br/>
+            <b>Website : </b> <a href="http://jc22.me"> jc22.me </a> <br/>
+            <br />
+
+            <b>Education : </b> Stevens Institute of Technology <br/>
+            <b>Degree : </b> Bachelor of Engineering in Mechanical Engineering <br/>
+            <b>Course Work : </b> Intro to Robotics, Control Systems, Intro to Modern Control Engineering, Design of Machine Components, Thermal Engineering, Fluid Dynamics, Engineering Design <br/>
+            <b>GPA : </b> 3.808 <br/>
+            <br />
+
+            <b>Skills : </b> SolidWorks, AutoCAD, Machining, Linux, Electronics, ANSYS, Word, Excel, PowerPoint <br/>
+            <b>Programming : </b> Python, Java, C, C++, MATLAB, Arduino, HTML/CSS, JS/React, SQL <br/>
+            <br />            
+
+            <b>Experience</b>  <br/>
+            
         </div>
     );
 }
@@ -27,7 +56,7 @@ function Resume(props) {
 const ResumeContainer = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     text-align: center;
 `;
 
@@ -43,8 +72,8 @@ const StyledResume = styled.img`
 const InfoBlock = styled.div`
     display: flex;
     width: 40vw;
-    height: 50vh;
-    background-color: #06B25F;
+    height: 100%;
+    line-height: 150%;
 `;
 
 export { Resume };
