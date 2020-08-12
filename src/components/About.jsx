@@ -25,6 +25,7 @@ const AboutContainer = styled.div`
     align-items: center;
     justify-content: space-around;
     text-align: center;
+    flex-wrap: wrap;
 `;
 
 const Photo = styled.img`
@@ -32,18 +33,18 @@ const Photo = styled.img`
     border: 2px solid #06B25F;
     box-shadow: 1px 1px #888888;
     display: flex;
-    width: 40vw;
-    hegith: 50vh;
+    flex-basis: 768px;
 `;
 
 const InfoBlock = styled.div`
     display: flex;
     flex-wrap: wrap;
     text-align: center;
-    width: 40vw;
+    width: 30vw;
     height: 100%;
     font-size: 1.5em;
     justify-content: center;
+    flex-basis: 640px;
 `;
 
 export { About };

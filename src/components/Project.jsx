@@ -92,6 +92,7 @@ const ProjectImage = styled.div`
     width: 100%;
     z-index: 999;
     margin: 5vh 2vw;
+    border: 2px solid #06B25F;
 `;
 
 const ProjectsBox = styled.div`
