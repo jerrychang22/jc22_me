@@ -1,27 +1,31 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
-import { projs } from '../utils/constants.js';
 
+import * as projects_data from '../misc/projects.json';
 import JCPIC from '../misc/JC2.jpg';
 
 function ProjectCard(props) {
+    var project = props.proj;
+    var about = project.About.split('@');
+    var tags = project.Tags.split('@').map((tag) => <Tag> {tag} </Tag>);
+
     return (
             <CardContainer>
                 <CardInfo>
                     <CardTitle>
-                        #1 Name <br />
-                        Date
+                        <h3 style={{margin: '1vh 0'}}> #{project.id} {project.Name} </h3>
+                        {project.Date}
                     </CardTitle>
                     <CardAbout>
-                        <p>About</p>
+                        <p>About : {about[0]} </p>
                     </CardAbout>
                 </CardInfo>
                 <CardTags>
-                    Elec
+                    {tags}
                 </CardTags>
                 <CardMore>
-                    More button
+                    
                 </CardMore>
             </CardContainer>
     );
@@ -29,7 +33,7 @@ function ProjectCard(props) {
 
 function ProjectList(props) {
     var disp_height = (window.innerWidth < window.innerHeight) ? 30 : 90; 
-    var proj_list = projs.map((proj) => <ListItem> <ProjectCard /> </ListItem>);
+    var proj_list = projects_data.items.map((proj) => <ListItem> <ProjectCard proj={proj} /> </ListItem>);
     return (
         <div>
             <ProjectHeader>
@@ -115,7 +119,6 @@ const ListItem = styled.li`
 
 const CardContainer = styled.div`
     display: flex;
-    height: 20vh;
     width: 100%;
     border-top: 2px solid #06B25F; 
     border-bottom: 2px solid #06B25F; 
@@ -124,28 +127,36 @@ const CardContainer = styled.div`
 
 const CardInfo = styled.div`
     display: flex;
-    flex-grow: 5;
+    width: 65%;
     flex-direction: column;
+    margin-right: 5%;
 `;
 
 const CardTitle = styled.div`
     width: 100%;
-    height: 20%;
 `;
 
 const CardAbout = styled.div`
     width: 100%;
-    height: 80%;
+    height: 70%;
+    font-size: 0.9em;
 `;
 
 const CardTags = styled.div`
     display: flex;
-    flex-grow: 2;
+    width: 15%;
+    margin: 3vh 0;
+    flex-direction: column;
+`;
 
+const Tag = styled.div`
+    display: flex;
+    width: 8em;
+    margin: 1vh 0;
 `;
 
 const CardMore = styled.div`
     display: flex;
-    flex-grow: 1;
+    width: 10%;
 `
 export { ProjectCard, ProjectList, ProjectPage };
