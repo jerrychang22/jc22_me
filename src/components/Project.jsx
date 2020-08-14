@@ -6,19 +6,24 @@ import * as projects_data from '../misc/projects.json';
 import JCPIC from '../misc/JC2.jpg';
 
 function ProjectCard(props) {
-    var project = props.proj;
+    const position = React.useRef(null);
+    function scrollToPosition(){
+        window.scrollTo({top: position.current.getBoundingClientRect().top + window.pageYOffset - props.scroll * window.innerHeight, behavior: 'smooth'});
+    } 
+
+    const project = props.proj;
     var about = project.About.split('@');
     var tags = project.Tags.split('@').map((tag) => <Tag> {tag} </Tag>);
 
     return (
-            <CardContainer>
+            <CardContainer ref={position} onClick={scrollToPosition}>
                 <CardInfo>
                     <CardTitle>
                         <h3 style={{margin: '1vh 0'}}> #{project.id} {project.Name} </h3>
                         {project.Date}
                     </CardTitle>
                     <CardAbout>
-                        <p>About : {about[0]} </p>
+                        <p>{about[0]} </p>
                     </CardAbout>
                 </CardInfo>
                 <CardTags>
@@ -32,8 +37,10 @@ function ProjectCard(props) {
 }
 
 function ProjectList(props) {
-    var disp_height = (window.innerWidth < window.innerHeight) ? 30 : 90; 
-    var proj_list = projects_data.items.map((proj) => <ListItem> <ProjectCard proj={proj} /> </ListItem>);
+    var mobile = (window.innerWidth < window.innerHeight);
+    var disp_height = mobile ? 30 : 90;
+    var card_scroll = mobile ? 0.4 : 0.15;
+    var proj_list = projects_data.items.map((proj) => <ListItem> <ProjectCard proj={proj} scroll={card_scroll}/> </ListItem>);
     return (
         <div>
             <ProjectHeader>
@@ -60,7 +67,7 @@ function ProjectPage(props) {
 const ProjectHeader = styled.div`
     display: flex;
     width: 100%;
-    height: 30vh;
+    height: 10vh;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -97,6 +104,11 @@ const ProjectImage = styled.div`
     z-index: 999;
     margin: 5vh 2vw;
     border: 2px solid #06B25F;
+    display: flex;
+`;
+
+const ProjectPic = styled.img`
+    
 `;
 
 const ProjectsBox = styled.div`
@@ -115,6 +127,9 @@ const ListItem = styled.li`
     list-style-type: none;
     margin: 0;
     padding: 0;
+    &:hover{
+        border: 1px solid #222222
+    }
 `;
 
 const CardContainer = styled.div`

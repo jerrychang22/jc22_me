@@ -8,7 +8,6 @@ import GithubIcon from '../misc/github.png';
 function Contact(props){
     return (
             <>
-            <h1> Contact me :) </h1>
             <ContactBody>
                     <ContactInfo>
                         <div>
@@ -46,17 +45,17 @@ function ContactFooter(props){
     return (
         <StyledContactFooter>
             <ContactItem href="mailto:jerrychang22@gmail.com">
-                <img src={EmailIcon} width={'30vw'}/>
+                <Icon src={EmailIcon}/>
                 Email
             </ContactItem>
             
             <ContactItem href="https://www.linkedin.com/in/jerrychang22/">
-                <img src={LinkedinIcon} width={'30vw'}/>
+                <Icon src={LinkedinIcon}/>
                 LinkedIn
             </ContactItem>
 
             <ContactItem href="https://github.com/jerrychang22/">
-                <img src={GithubIcon} width={'30vw'}/>
+                <Icon src={GithubIcon}/>
                 Github
             </ContactItem>
             
@@ -71,9 +70,9 @@ const ContactBody = styled.div`
     min-height: 55vh;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 30vw;
+    width: 25vw;
     position: absolute;
-    left: 35vw;
+    left: 40vw;
     font-size: 1.2em;
 `;
 
@@ -102,6 +101,11 @@ const ContactItem = styled.a`
     margin: 5vw;
     text-decoration: none;
     font-size: 1.5em;
+`;
+
+const Icon = styled.img`
+    margin: 0 0.5vw;
+    width: 30px;
 `;
 
 const Copyright = styled.div`

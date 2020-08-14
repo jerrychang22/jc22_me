@@ -17,18 +17,16 @@ function Home(props){
                 <WhoImage>
                     <WhoBlock>
                         <WhoText>
-                            <h2> Who am I? </h2>
-                            <h3>
-                                My name is Jerry Chang
-                            </h3>
+                            <p>
+                                My name is <b>Jerry Chang</b>
+                            </p>
                             <p>
                                 I'm a mechanical engineering student who loves to design, build, and program. 
                             </p>
                             <p>
-                                I pride myself in learning the fundamentals and building quality from the ground up and with extensibility in mind.
+                                I pride myself in learning the fundamentals and building quality from the ground up with extensibility in mind.
                             </p>
-                            <p> Learn more about me </p>
-                            <StyledNavButton to='/about' onClick={navContentScroll}> About </StyledNavButton>  
+                            <StyledNavButton to='/about' onClick={navContentScroll}> Learn more about me</StyledNavButton>  
                         </WhoText>
                     </WhoBlock>
                 </WhoImage>
