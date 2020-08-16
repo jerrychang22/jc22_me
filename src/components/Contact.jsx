@@ -101,6 +101,11 @@ const ContactItem = styled.a`
     margin: 5vw;
     text-decoration: none;
     font-size: 1.5em;
+    
+    &:link, &:visited {
+        color: white;
+    }
+
 `;
 
 const Icon = styled.img`

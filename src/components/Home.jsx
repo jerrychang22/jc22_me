@@ -5,6 +5,8 @@ import { StyledNavButton, navContentScroll2 } from './NavigationBar.jsx';
 import { lerp } from '../utils/lerp.js';
 import { maxBlackout } from '../utils/constants.js';
 import JCPNG from '../misc/JC2.jpg';
+import WorkIMG from '../misc/work.jpg';
+import CollageIMG from '../misc/projects.png';
 
 //Home page
 function Home(props){
@@ -31,7 +33,7 @@ function Home(props){
                     </WhoBlock>
                 </WhoImage>
                 <BreakBlock>
-                    Test
+                    No image available
                 </BreakBlock>
                 
                 <ProjectAndWork>
@@ -105,7 +107,7 @@ const HomeProject = styled.div`
     flex-grow: 1;
     flex-basis: 640px;
 
-    background-image: url(${JCPNG});
+    background-image: url(${CollageIMG});
     background-size: cover;
     height: 90vh;
 
@@ -121,8 +123,9 @@ const HomeWork = styled.div`
     flex-grow: 1;
     flex-basis: 640px;
 
-    background-image: url(${JCPNG});
+    background-image: url(${WorkIMG});
     background-size: cover;
+    background-position: center;
     height: 90vh;
 
     justify-content: center;

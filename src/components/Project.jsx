@@ -3,27 +3,31 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import * as projects_data from '../misc/projects.json';
-import JCPIC from '../misc/JC2.jpg';
 
 function ProjectCard(props) {
-    const position = React.useRef(null);
-    function scrollToPosition(){
-        window.scrollTo({top: position.current.getBoundingClientRect().top + window.pageYOffset - props.scroll * window.innerHeight, behavior: 'smooth'});
-    } 
 
     const project = props.proj;
+    var code = "";
+    var codeString;
+    if (project.hasOwnProperty('Code')) {
+        code = project.Code;
+        if (code != "No longer available")
+            codeString = <p>Code: <a href={code}>{code}</a></p>;
+        else codeString = <p>Code: {code}</p>;
+    }
     var about = project.About.split('@');
     var tags = project.Tags.split('@').map((tag) => <Tag> {tag} </Tag>);
 
     return (
-            <CardContainer ref={position} onClick={scrollToPosition}>
+            <CardContainer>
                 <CardInfo>
                     <CardTitle>
                         <h3 style={{margin: '1vh 0'}}> #{project.id} {project.Name} </h3>
                         {project.Date}
                     </CardTitle>
                     <CardAbout>
-                        <p>{about[0]} </p>
+                        <p>{about[0]}</p>
+                        {codeString}
                     </CardAbout>
                 </CardInfo>
                 <CardTags>
@@ -37,10 +41,40 @@ function ProjectCard(props) {
 }
 
 function ProjectList(props) {
+
+    const [current_image, update_image] = React.useState(projects_data.items[0].Images);
     var mobile = (window.innerWidth < window.innerHeight);
-    var disp_height = mobile ? 30 : 90;
+    var disp_height = mobile ? 20 : 80;
+    var image_width = mobile ? 100 : 40;
     var card_scroll = mobile ? 0.4 : 0.15;
-    var proj_list = projects_data.items.map((proj) => <ListItem> <ProjectCard proj={proj} scroll={card_scroll}/> </ListItem>);
+
+    var proj_list = projects_data.items.map((proj) => {
+        const position = React.useRef(null); 
+        function projectClick(){
+            window.scrollTo({top: position.current.getBoundingClientRect().top + window.pageYOffset - card_scroll * window.innerHeight, behavior: 'smooth'});
+            
+            if ({proj}.proj.hasOwnProperty('Images')){
+                update_image({proj}.proj.Images);
+            }
+            else{
+                update_image('NoImages.png');
+            }
+        }
+        return (
+            <ListItem ref={position} onClick={projectClick}> 
+                <ProjectCard proj={proj} />
+            </ListItem>)
+    });
+  
+    var image_list = current_image.split("@");
+    var image_height = mobile ? 30 : 80/image_list.length;
+    image_list = image_list.map((img) => {
+        return <>
+                <ProjectImage src={'./project_images/' + img}>
+                </ProjectImage>
+            </>
+    });
+
     return (
         <div>
             <ProjectHeader>
@@ -49,8 +83,8 @@ function ProjectList(props) {
             </ProjectHeader>
             
             <ProjectsContainer>
-                <ProjectDisplay height={disp_height}>
-                    <ProjectImage />
+                <ProjectDisplay height={disp_height} width={image_width}>
+                    {image_list}
                 </ProjectDisplay>
                 <ProjectsBox>
                     <ListContainer> {proj_list} </ListContainer>
@@ -58,10 +92,6 @@ function ProjectList(props) {
             </ProjectsContainer>
         </div>
     );
-}
-
-function ProjectPage(props) {
-    return;
 }
 
 const ProjectHeader = styled.div`
@@ -81,41 +111,48 @@ const ProjectH = styled.div`
 const ProjectsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
 `;
 
 const ProjectDisplay = styled.div`
     display: flex;
-    flex-basis: 640px;
-    flex-grow: 1;
-
     background-color: white;
     height: ${props => props.height}vh;
+    width: ${props => props.width}vw;
     
     position: sticky;
     top: 10vh;
-    z-index: 998;
+    padding: 5vh 0.5vw;
+    
+    flex-flow: column wrap;
 `;
 
 const ProjectImage = styled.div`
-    background-image: url(${JCPIC});
-    background-size: cover;
-    width: 100%;
-    z-index: 999;
-    margin: 5vh 2vw;
-    border: 2px solid #06B25F;
     display: flex;
+   
+    justify-content: center;
+    flex: 1 1 15vh;
+
+    background-image: url(${props => props.src});
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px solid #06B25F;
 `;
 
 const ProjectPic = styled.img`
-    
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    height: ${props => props.height}vh;
 `;
 
 const ProjectsBox = styled.div`
     display: flex;
     flex-basis: 640px;
-    flex-grow: 2;
-    z-index: 997;
+    flex-grow: 1;
+    margin-top: 5vh;
+    margin-left: 2vw;
 `;
 
 const ListContainer = styled.ul`
@@ -174,4 +211,4 @@ const CardMore = styled.div`
     display: flex;
     width: 10%;
 `
-export { ProjectCard, ProjectList, ProjectPage };
+export { ProjectCard, ProjectList };
