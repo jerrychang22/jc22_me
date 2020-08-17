@@ -77,36 +77,19 @@ function ProjectList(props) {
 
     return (
         <div>
-            <ProjectHeader>
-                <ProjectH> <h1> Projects </h1> </ProjectH> 
-                <ProjectH> Some stuff I did </ProjectH>
-            </ProjectHeader>
-            
+            <h1 style={{margin: '0'}}> Projects </h1>
             <ProjectsContainer>
                 <ProjectDisplay height={disp_height} width={image_width}>
                     {image_list}
                 </ProjectDisplay>
                 <ProjectsBox>
+                    <ProjectNote>Click on some projects I've done</ProjectNote>
                     <ListContainer> {proj_list} </ListContainer>
                 </ProjectsBox>
             </ProjectsContainer>
         </div>
     );
 }
-
-const ProjectHeader = styled.div`
-    display: flex;
-    width: 100%;
-    height: 10vh;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-`;
-
-const ProjectH = styled.div`
-    font-size: 1em;
-    width: 40vw;
-`;
 
 const ProjectsContainer = styled.div`
     display: flex;
@@ -153,6 +136,13 @@ const ProjectsBox = styled.div`
     flex-grow: 1;
     margin-top: 5vh;
     margin-left: 2vw;
+    flex-direction: column;
+`;
+
+const ProjectNote = styled.div`
+    display: flex;
+    height: 5vh;
+    justify-content: center;
 `;
 
 const ListContainer = styled.ul`

@@ -33,7 +33,7 @@ function Home(props){
                     </WhoBlock>
                 </WhoImage>
                 <BreakBlock>
-                    No image available
+                    Check out some of the things I've done
                 </BreakBlock>
                 
                 <ProjectAndWork>
