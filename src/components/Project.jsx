@@ -47,6 +47,7 @@ function ProjectList(props) {
     var disp_height = mobile ? 20 : 80;
     var image_width = mobile ? 100 : 40;
     var card_scroll = mobile ? 0.4 : 0.15;
+    var image_wrap = mobile ? 'wrap' : 'nowrap';
 
     var proj_list = projects_data.items.map((proj) => {
         const position = React.useRef(null); 
@@ -78,7 +79,7 @@ function ProjectList(props) {
     return (
         <div>
             <h1 style={{margin: '0'}}> Projects </h1>
-            <ProjectsContainer>
+            <ProjectsContainer wrap={image_wrap}>
                 <ProjectDisplay height={disp_height} width={image_width}>
                     {image_list}
                 </ProjectDisplay>
@@ -93,8 +94,7 @@ function ProjectList(props) {
 
 const ProjectsContainer = styled.div`
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: ${props => props.wrap};
 `;
 
 const ProjectDisplay = styled.div`
